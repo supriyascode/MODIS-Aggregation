@@ -1,5 +1,5 @@
 # MODIS-Aggregation
-[![Binder](https://binder.pangeo.io/badge.svg)](https://binder.pangeo.io/v2/gh/big-data-lab-umbc/MODIS-Aggregation/master)
+[![Binder](https://binder.pangeo.io/badge_logo.svg)](https://binder.pangeo.io/v2/gh/supriyascode/MODIS-Aggregation/master)
 
 #Master Branch Build Status
 [![Build Status](https://travis-ci.org/sdeshpa1/MODIS_Aggregation.svg?branch=master)](https://travis-ci.org/sdeshpa1/MODIS_Aggregation)
