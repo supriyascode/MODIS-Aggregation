@@ -44,10 +44,10 @@ def read_filelist(loc_dir,prefix,yr,day,fileformat):
 	str = os.popen("ls "+ loc_dir + prefix + yr + day + "*."+fileformat).read()
 	fname = np.array(str.split("\n"))
 	fname = np.delete(fname,len(fname)-1)
-
+	
 	return fname
 
-def readEntry(key,ncf):
+def readEntry(key,ncf,spl_num):
 	# Read the MODIS variables based on User's name list
 	rdval=np.array(ncf.variables[key]).astype(np.float)
 	#scale=ncf.variables[key].scale_factor
@@ -65,11 +65,12 @@ def readEntry(key,ncf):
 
 	return rdval,lonam
 
-def read_MODIS(varnames,fname1,fname2): 
+def read_MODIS(varnames,fname1,fname2,spl_num): 
 	# Store the data from variables after reading MODIS files
 	data={}
 	longname_list = []
 	# Read the Cloud Mask from MYD06 product
+
 	ncfile=Dataset(fname1,'r')
 
 	#CM1km = readEntry('Cloud_Mask_1km',ncfile)
@@ -84,7 +85,7 @@ def read_MODIS(varnames,fname1,fname2):
 	# Read the User-defined variables from MYD06 product
 	for key in varnames:
 		if key == 'Cloud_Fraction': continue #Ignoreing Cloud_Fraction from the input file		
-		data[key],lonam = readEntry(key,ncfile)
+		data[key],lonam = readEntry(key,ncfile,spl_num)
 		longname_list = np.append(longname_list, lonam)
 
 	# Add the long name of cloud freaction at the first row
@@ -184,7 +185,7 @@ def cal_stats(z,key,grid_data,min_val,max_val,tot_val,count,all_val,all_val_2d, 
 	return grid_data
 
 def run_modis_aggre(fname1,fname2,NTA_lats,NTA_lons,grid_lon,grid_lat,gap_x,gap_y,filenum, \
-					sts_switch,varnames,intervals_1d,intervals_2d,var_idx,sts_name,histnames):
+					sts_switch,varnames,intervals_1d,intervals_2d,var_idx,spl_num, sts_name,histnames):
 	# Create arrays for level-3 statistics data
 	grid_data = {}
 	bin_num1 = np.zeros(len(varnames)).astype(np.int)
@@ -222,7 +223,7 @@ def run_modis_aggre(fname1,fname2,NTA_lats,NTA_lons,grid_lon,grid_lat,gap_x,gap_
 	print(fname2)
 
 	# Read Level-2 MODIS data
-	lat,lon,data,longname_list = read_MODIS(varnames,fname1,fname2)
+	lat,lon,data,longname_list = read_MODIS(varnames,fname1,fname2,spl_num)
 	print("longname_list")
 	print(longname_list)
 	CM = data['CM']

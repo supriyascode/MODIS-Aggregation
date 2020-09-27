@@ -185,6 +185,7 @@ def cal_stats(z,key,grid_data,min_val,max_val,tot_val,count,all_val,all_val_2d, 
 def run_modis_aggre(fname1,fname2,NTA_lats,NTA_lons,grid_lon,grid_lat,gap_x,gap_y,hdfs, \
 					grid_data,sts_switch,varnames,intervals_1d,intervals_2d,var_idx, spl_num, sts_name, histnames):
 	# This function is the data aggregation loops by number of files
+	print('***********inside run_modis_aggre************')
 	hdfs = np.array(hdfs)
 	for j in hdfs:#range(1):#hdfs:
 		print("File Number: {} / {}".format(j,hdfs[-1]))
@@ -223,7 +224,8 @@ def run_modis_aggre(fname1,fname2,NTA_lats,NTA_lons,grid_lon,grid_lat,gap_x,gap_
 
 		#print(lon[0],idx_lon[0],lat[0],idx_lat[0])
 		#print(latlon_index_unique.max(),grid_lat*grid_lon)
-		
+		print(latlon_index_unique.size)
+		print('***********calling run_modis_aggre --- 1 --- ************')
 		for i in np.arange(latlon_index_unique.size):
 		#-----loop through all the grid boxes ocupied by this granule------#
 			z=latlon_index_unique[i]
@@ -283,6 +285,7 @@ def run_modis_aggre(fname1,fname2,NTA_lats,NTA_lons,grid_lon,grid_lat,gap_x,gap_
 
 					key_idx += 1
 
+	print('***********before return************')
 	return grid_data
 
 
